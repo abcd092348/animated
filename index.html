@@ -4,454 +4,1074 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome | My Website</title>
+<meta name="theme-color" content="#030712">
+<title>MH Group | Future Starts Here</title>
 
 <style>
+:root {
+  --bg: #030712;
+  --panel: rgba(9, 24, 46, .78);
+  --blue: #00d9ff;
+  --blue2: #3478ff;
+  --text: #f4f9ff;
+  --muted: #91a8c7;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #030817;
-    color: white;
-    overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-/* Animated background */
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    background:
-        radial-gradient(ellipse at 50% 40%,
-        #062b55 0%, #030817 65%);
+body.loading {
+  overflow: hidden;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* LOADING SCREEN */
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #020611;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+
+#loader.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-content {
+  width: min(320px, 80vw);
+  text-align: center;
+}
+
+.loader-logo {
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: -5px;
+  margin-bottom: 14px;
+  animation: logoPulse 1.3s infinite alternate;
+}
+
+.loader-logo span {
+  color: var(--blue);
+}
+
+.loader-label {
+  color: #a8c5e9;
+  letter-spacing: 5px;
+  font-size: 11px;
+  margin-bottom: 25px;
+}
+
+.progress-track {
+  height: 3px;
+  background: #14243a;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--blue2), var(--blue));
+  box-shadow: 0 0 15px var(--blue);
+  animation: loadingProgress 1.5s ease forwards;
+}
+
+@keyframes loadingProgress {
+  to { width: 100%; }
+}
+
+@keyframes logoPulse {
+  from { opacity: .55; filter: drop-shadow(0 0 2px #00d9ff); }
+  to { opacity: 1; filter: drop-shadow(0 0 22px #00d9ff); }
+}
+
+/* BACKGROUND */
 
 #particles {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* Navigation */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 35%, #07315b 0%, transparent 47%),
+    radial-gradient(ellipse at 90% 90%, #081e42 0%, transparent 35%),
+    var(--bg);
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .12;
+  background-image:
+    linear-gradient(#1b6caa 1px, transparent 1px),
+    linear-gradient(90deg, #1b6caa 1px, transparent 1px);
+  background-size: 55px 55px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+/* NAVIGATION */
+
 nav {
-    height: 76px;
-    padding: 0 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(3, 8, 23, 0.75);
-    border-bottom: 1px solid #12304b;
-    backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid rgba(58, 151, 216, .17);
+  background: rgba(3, 7, 18, .78);
+  backdrop-filter: blur(18px);
 }
 
-.logo {
-    font-size: 27px;
-    font-weight: 900;
-    letter-spacing: 1px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .5px;
 }
 
-.logo span {
-    color: #00d9ff;
+.brand-mark {
+  font-size: 29px;
+  font-weight: 950;
+  letter-spacing: -3px;
+  background: linear-gradient(120deg, white 20%, var(--blue) 75%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 nav ul {
-    display: flex;
-    gap: 32px;
-    list-style: none;
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
 }
 
-nav a {
-    color: #dcecff;
-    text-decoration: none;
-    transition: 0.3s;
+nav ul a {
+  color: #b8c8dd;
+  font-size: 14px;
+  transition: color .25s;
 }
 
-nav a:hover {
-    color: #00d9ff;
+nav ul a:hover {
+  color: var(--blue);
 }
 
-/* Hero section */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sound-toggle {
+  border: 1px solid #214362;
+  background: #09172a;
+  color: #a6dfff;
+  border-radius: 50px;
+  padding: 10px 13px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: .3s;
+}
+
+.sound-toggle:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 15px #00d9ff20;
+}
+
+/* HERO */
+
 .hero {
-    min-height: calc(100vh - 76px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 70px 20px;
-    position: relative;
+  min-height: 670px;
+  min-height: min(800px, calc(100svh - 76px));
+  display: grid;
+  place-items: center;
+  padding: 75px 22px 100px;
+  position: relative;
+  isolation: isolate;
 }
 
 .hero-content {
-    animation: appear 1.2s ease both;
+  width: min(850px, 100%);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: heroEnter 1.1s .1s both;
 }
 
-.circle {
-    position: absolute;
-    width: 330px;
-    height: 330px;
-    border: 2px solid rgba(0, 217, 255, 0.7);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -58%);
-    box-shadow: 0 0 45px #006eff30,
-                inset 0 0 45px #006eff20;
-    animation: pulse 4s infinite ease-in-out;
-    pointer-events: none;
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(28px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.tagline {
-    font-size: 18px;
-    letter-spacing: 5px;
-    color: #9bcfff;
-    margin-bottom: 20px;
-    animation: slideDown 1s ease both;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border: 1px solid #174569;
+  border-radius: 50px;
+  background: rgba(5, 29, 51, .65);
+  color: #9feaff;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00e6b0;
+  box-shadow: 0 0 12px #00e6b0;
+  animation: blink 1.4s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .35; }
 }
 
 h1 {
-    font-size: clamp(45px, 8vw, 88px);
-    line-height: 1.15;
-    font-weight: 900;
-    margin-bottom: 22px;
+  font-size: clamp(49px, 9vw, 100px);
+  font-weight: 900;
+  letter-spacing: -4px;
+  line-height: 1.04;
+  margin-bottom: 24px;
 }
 
 .gradient-text {
-    background: linear-gradient(
-        90deg, #ffffff, #00d9ff, #4385ff, #ffffff
-    );
-    background-size: 250%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradientMove 5s linear infinite;
+  background: linear-gradient(
+    100deg, #fff 5%, #8beeff 35%, #00aaff 62%, #7c86ff 90%
+  );
+  background-size: 220%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: textFlow 5s linear infinite;
 }
 
-.description {
-    font-size: 19px;
-    color: #b5c9e5;
-    line-height: 1.8;
-    max-width: 580px;
-    margin: 0 auto 32px;
+@keyframes textFlow {
+  to { background-position: 220%; }
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.9;
+  max-width: 630px;
+  margin: 0 auto 34px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
 }
 
 .btn {
-    display: inline-block;
-    padding: 15px 32px;
-    color: #00d9ff;
-    border: 2px solid #00aaff;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.35s;
-    box-shadow: 0 0 15px #008cff20;
+  min-height: 50px;
+  padding: 14px 24px;
+  border: 1px solid #1476a8;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+
+.btn-primary {
+  color: #00101a;
+  border-color: transparent;
+  background: linear-gradient(110deg, #00d9ff, #65aaff);
+  box-shadow: 0 0 28px #00aaff24;
+}
+
+.btn-secondary {
+  color: #d7f5ff;
+  background: rgba(8, 26, 48, .8);
 }
 
 .btn:hover {
-    color: #030817;
-    background: #00d9ff;
-    box-shadow: 0 0 35px #00bfff80;
-    transform: translateY(-4px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px #00aaff35;
 }
 
-.arrow {
-    display: inline-block;
-    margin-left: 8px;
-    transition: transform 0.3s;
+.btn-primary:hover {
+  background: linear-gradient(110deg, white, #00d9ff);
 }
 
-.btn:hover .arrow {
-    transform: translateX(5px);
+.btn-secondary:hover {
+  border-color: var(--blue);
 }
 
-/* Features */
-.features {
-    padding: 80px 8%;
-    background: #050d1c;
-    border-top: 1px solid #12304b;
-    text-align: center;
+/* 3D ORBIT */
+
+.orbit-scene {
+  position: absolute;
+  width: min(510px, 88vw);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -57%);
+  perspective: 900px;
+  z-index: -1;
+  pointer-events: none;
 }
 
-.features h2 {
-    font-size: 35px;
-    margin-bottom: 15px;
+.orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 194, 255, .35);
+  border-radius: 50%;
+  box-shadow: inset 0 0 30px #00aaff09, 0 0 28px #008cff09;
 }
 
-.features > p {
-    color: #9eb4d0;
-    margin-bottom: 45px;
+.orbit-one {
+  transform: rotateX(67deg) rotateZ(0deg);
+  animation: orbitSpin 13s linear infinite;
+}
+
+.orbit-two {
+  inset: 10%;
+  border-color: rgba(69, 119, 255, .45);
+  transform: rotateY(66deg);
+  animation: orbitSpin 18s linear infinite reverse;
+}
+
+.orbit-three {
+  inset: 23%;
+  border-color: rgba(0, 217, 255, .2);
+  transform: rotateX(72deg);
+  animation: orbitSpin 10s linear infinite;
+}
+
+.core {
+  position: absolute;
+  width: 27%;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #00d9ff2e, #1264ff08 70%);
+  box-shadow: 0 0 70px #00aaff22;
+  animation: corePulse 3s ease-in-out infinite;
+}
+
+@keyframes orbitSpin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+@keyframes corePulse {
+  50% { scale: 1.15; opacity: .6; }
+}
+
+/* SCROLL INDICATOR */
+
+.scroll-cue {
+  position: absolute;
+  bottom: 27px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 9px;
+  color: #7895b5;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(var(--blue), transparent);
+  animation: scrollPulse 1.4s infinite;
+}
+
+@keyframes scrollPulse {
+  50% { opacity: .25; transform: scaleY(.65); }
+}
+
+/* SECTION */
+
+.section {
+  padding: 95px 8%;
+  border-top: 1px solid #102640;
+  background: linear-gradient(180deg, #040b18d9, #030712f2);
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-heading small {
+  color: var(--blue);
+  letter-spacing: 4px;
+  font-size: 11px;
+}
+
+.section-heading h2 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 15px 0;
+}
+
+.section-heading p {
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 .cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: auto;
+  perspective: 1000px;
 }
 
 .card {
-    padding: 32px 24px;
-    border: 1px solid #173b5b;
-    border-radius: 18px;
-    background: linear-gradient(
-        145deg, #0b1a30, #071020
-    );
-    transition: 0.35s;
-    opacity: 0;
-    transform: translateY(30px);
+  min-height: 230px;
+  padding: 30px 26px;
+  border: 1px solid #163655;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #0b1c32dc, #050d1be8);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: border-color .3s, box-shadow .3s;
+  opacity: 0;
+  transform: translateY(25px);
 }
 
 .card.show {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .7s, transform .7s, border-color .3s, box-shadow .3s;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #00c8ff0b;
+  filter: blur(35px);
+  top: -80px;
+  right: -60px;
 }
 
 .card:hover {
-    border-color: #00d9ff;
-    box-shadow: 0 0 25px #00bfff20;
-    transform: translateY(-8px);
+  border-color: #00aeea;
+  box-shadow: 0 15px 50px #008cff13;
 }
 
-.card .icon {
-    font-size: 38px;
-    margin-bottom: 18px;
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 22px;
+  transform: translateZ(25px);
 }
 
 .card h3 {
-    margin-bottom: 12px;
-    color: #eaf8ff;
+  font-size: 19px;
+  margin-bottom: 12px;
+  transform: translateZ(18px);
 }
 
 .card p {
-    color: #9eb4d0;
-    line-height: 1.7;
+  color: #93a9c6;
+  font-size: 14px;
+  line-height: 1.8;
+  transform: translateZ(10px);
 }
+
+/* FOOTER */
 
 footer {
-    text-align: center;
-    padding: 25px;
-    color: #8196b2;
-    border-top: 1px solid #142840;
+  padding: 28px 7%;
+  border-top: 1px solid #142b44;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  color: #8097b5;
+  font-size: 12px;
+  background: #020611;
 }
 
-/* Animations */
-@keyframes appear {
-    from { opacity: 0; transform: translateY(35px); }
-    to { opacity: 1; transform: translateY(0); }
+footer strong {
+  color: #bcefff;
 }
 
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* CUSTOM CURSOR GLOW */
+
+#cursor-glow {
+  position: fixed;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #007fff12 0%, transparent 70%);
+  transform: translate(-50%, -50%);
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.45; scale: 1; }
-    50% { opacity: 0.9; scale: 1.06; }
+@media (pointer: coarse) {
+  #cursor-glow { display: none; }
 }
 
-@keyframes gradientMove {
-    from { background-position: 0%; }
-    to { background-position: 250%; }
+@media (max-width: 760px) {
+  nav {
+    padding: 15px 5%;
+    min-height: 70px;
+    flex-wrap: wrap;
+  }
+
+  .brand { font-size: 18px; }
+  .brand-mark { font-size: 25px; }
+
+  nav ul { gap: 15px; }
+  nav ul a { font-size: 12px; }
+
+  .sound-toggle { padding: 8px 10px; }
+
+  .hero {
+    min-height: 670px;
+    min-height: calc(90svh - 30px);
+    padding: 70px 20px 90px;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  .orbit-scene {
+    width: 90vw;
+  }
+
+  .section { padding: 75px 6%; }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card { min-height: 190px; }
 }
 
-/* Mobile responsive */
-@media (max-width: 700px) {
-    nav {
-        padding: 0 5%;
-    }
-
-    nav ul {
-        gap: 12px;
-    }
-
-    nav a {
-        font-size: 12px;
-    }
-
-    .logo {
-        font-size: 22px;
-    }
-
-    .tagline {
-        font-size: 13px;
-        letter-spacing: 3px;
-    }
-
-    .description {
-        font-size: 16px;
-    }
-
-    .circle {
-        width: 260px;
-        height: 260px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-    .features h2 {
-        font-size: 29px;
-    }
+@media (max-width: 430px) {
+  nav { gap: 12px; }
+  nav ul { order: 3; width: 100%; justify-content: center; }
+  .nav-actions { margin-left: auto; }
+  .eyebrow { font-size: 9px; letter-spacing: 2px; }
+  .hero-buttons { flex-direction: column; align-items: stretch; }
+  .btn { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 </style>
 </head>
 
-<body>
+<body class="loading">
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-content">
+    <div class="loader-logo">M<span>H</span></div>
+    <div class="loader-label">INITIALIZING MH GROUP</div>
+    <div class="progress-track">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
 
 <div class="background"></div>
+<div class="grid-bg"></div>
 <canvas id="particles"></canvas>
+<div id="cursor-glow"></div>
 
+<!-- NAVIGATION -->
 <nav>
-    <div class="logo">M<span>H</span></div>
+  <a class="brand" href="#home" aria-label="MH Group home">
+    <span class="brand-mark">MH</span>
+    <span>GROUP</span>
+  </a>
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-    </ul>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Vision</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="sound-toggle" id="soundToggle"
+      type="button" aria-pressed="false">
+      ♫ Sound Off
+    </button>
+  </div>
 </nav>
 
+<!-- HERO -->
+<main>
 <section class="hero" id="home">
-    <div class="circle"></div>
 
-    <div class="hero-content">
-        <p class="tagline">HELLO, WELCOME TO</p>
+  <div class="orbit-scene" aria-hidden="true">
+    <div class="orbit orbit-one"></div>
+    <div class="orbit orbit-two"></div>
+    <div class="orbit orbit-three"></div>
+    <div class="core"></div>
+  </div>
 
-        <h1>
-            My <span class="gradient-text">Website</span>
-        </h1>
-
-        <p class="description">
-            Build your dreams with technology.
-            Explore creativity, innovation and endless possibilities.
-        </p>
-
-        <a href="#services" class="btn">
-            Get Started <span class="arrow">→</span>
-        </a>
+  <div class="hero-content" id="heroContent">
+    <div class="eyebrow">
+      <span class="status-dot"></span>
+      THINK BEYOND LIMITS
     </div>
+
+    <h1>
+      Welcome to<br>
+      <span class="gradient-text">MH Group</span>
+    </h1>
+
+    <p class="subtitle">
+      Where bold ideas meet future technology.
+      We believe in innovation, creativity and building
+      possibilities beyond imagination.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#about" class="btn btn-primary sound-button">
+        Explore Our World <span>↗</span>
+      </a>
+
+      <a href="#services" class="btn btn-secondary sound-button">
+        Discover Our Vision <span>→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    SCROLL TO EXPLORE
+    <div class="scroll-line"></div>
+  </div>
 </section>
 
-<section class="features" id="about">
-    <h2>Welcome to Our World</h2>
-    <p>Discover a new experience with modern technology.</p>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-heading">
+    <small>WHO WE ARE</small>
+    <h2>Ideas Into Possibilities</h2>
+    <p>
+      A forward-looking vision inspired by technology
+      and the power of creative thinking.
+    </p>
+  </div>
 
-    <div class="cards" id="services">
-        <div class="card">
-            <div class="icon">🚀</div>
-            <h3>Innovation</h3>
-            <p>Turn creative ideas into extraordinary digital experiences.</p>
-        </div>
+  <div class="cards" id="services">
 
-        <div class="card">
-            <div class="icon">✨</div>
-            <h3>Modern Design</h3>
-            <p>Enjoy a clean, beautiful interface with smooth animations.</p>
-        </div>
+    <article class="card tilt-card">
+      <div class="card-icon">◈</div>
+      <h3>Innovation</h3>
+      <p>
+        Explore fresh ideas, challenge limitations
+        and imagine new ways to shape tomorrow.
+      </p>
+    </article>
 
-        <div class="card">
-            <div class="icon">⚡</div>
-            <h3>Fast Experience</h3>
-            <p>Explore a lightweight website designed for all devices.</p>
-        </div>
-    </div>
+    <article class="card tilt-card">
+      <div class="card-icon">⌘</div>
+      <h3>Technology</h3>
+      <p>
+        Discover a digital-first approach to emerging
+        technologies and modern experiences.
+      </p>
+    </article>
+
+    <article class="card tilt-card">
+      <div class="card-icon">✧</div>
+      <h3>Ambition</h3>
+      <p>
+        Think bigger, stay curious and turn your
+        long-term vision into meaningful progress.
+      </p>
+    </article>
+
+  </div>
 </section>
+</main>
 
 <footer>
-    © 2026 My Website. All rights reserved.
+  <span>© <span id="year"></span> <strong>MH Group</strong></span>
+  <span>BUILT FOR TOMORROW <span style="color:#00d9ff">◆</span></span>
 </footer>
 
 <script>
-// Animated floating particles
+/* ---------------------------------
+   1. LOADING SCREEN
+--------------------------------- */
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+const loader = document.getElementById("loader");
+
+function finishLoading() {
+  loader.classList.add("done");
+  document.body.classList.remove("loading");
+}
+
+window.addEventListener("load", () => {
+  // A short intro animation, not a real network progress indicator.
+  setTimeout(finishLoading, 1600);
+});
+
+// Safety fallback if page load is delayed.
+setTimeout(finishLoading, 4500);
+
+
+/* ---------------------------------
+   2. SOUND EFFECTS
+   Uses Web Audio API; no audio file needed.
+--------------------------------- */
+let soundEnabled = false;
+let audioContext = null;
+
+const soundToggle = document.getElementById("soundToggle");
+
+function getAudioContext() {
+  if (!audioContext) {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) return null;
+
+    audioContext = new AudioContextClass();
+  }
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  return audioContext;
+}
+
+function playTone(frequency = 520, duration = 0.08) {
+  if (!soundEnabled) return;
+
+  const ac = getAudioContext();
+  if (!ac) return;
+
+  const oscillator = ac.createOscillator();
+  const gain = ac.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(frequency, ac.currentTime);
+
+  gain.gain.setValueAtTime(0.0001, ac.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+    0.045, ac.currentTime + 0.012
+  );
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001, ac.currentTime + duration
+  );
+
+  oscillator.connect(gain);
+  gain.connect(ac.destination);
+
+  oscillator.start();
+  oscillator.stop(ac.currentTime + duration + 0.02);
+}
+
+soundToggle.addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+
+  if (soundEnabled) {
+    getAudioContext();
+    soundToggle.textContent = "♫ Sound On";
+    soundToggle.setAttribute("aria-pressed", "true");
+    playTone(660, 0.14);
+  } else {
+    soundToggle.textContent = "♫ Sound Off";
+    soundToggle.setAttribute("aria-pressed", "false");
+  }
+});
+
+document.querySelectorAll(".sound-button").forEach(button => {
+  button.addEventListener("mouseenter", () => {
+    playTone(480, 0.045);
+  });
+
+  button.addEventListener("click", () => {
+    playTone(720, 0.10);
+  });
+});
+
+
+/* ---------------------------------
+   3. PARTICLE ANIMATION
+--------------------------------- */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
+let width = 0;
+let height = 0;
 let particles = [];
-let width, height;
+let animationFrame;
+let lastFrame = 0;
+
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
 
 function resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    width = window.innerWidth;
-    height = window.innerHeight;
+  width = window.innerWidth;
+  height = window.innerHeight;
 
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    particles = Array.from({ length: Math.min(
-        65, Math.floor(width / 15)
-    ) }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 2 + 0.5,
-        speed: Math.random() * 0.6 + 0.2
-    }));
+  const count = Math.min(65, Math.floor(width / 15));
+
+  particles = Array.from({ length: count }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    radius: Math.random() * 1.7 + 0.5,
+    speed: Math.random() * 0.35 + 0.08,
+    drift: (Math.random() - 0.5) * 0.25
+  }));
 }
 
-function animateParticles() {
-    ctx.clearRect(0, 0, width, height);
+function drawParticles(timestamp = 0) {
+  if (document.hidden) {
+    animationFrame = requestAnimationFrame(drawParticles);
+    return;
+  }
 
-    particles.forEach(p => {
-        p.y -= p.speed;
+  if (timestamp - lastFrame < 30) {
+    animationFrame = requestAnimationFrame(drawParticles);
+    return;
+  }
 
-        if (p.y < 0) {
-            p.y = height;
-            p.x = Math.random() * width;
-        }
+  lastFrame = timestamp;
+  ctx.clearRect(0, 0, width, height);
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(0, 200, 255, 0.8)";
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = "#00aaff";
-        ctx.fill();
-    });
+  for (const p of particles) {
+    if (!reducedMotion) {
+      p.y -= p.speed;
+      p.x += p.drift;
 
-    ctx.shadowBlur = 0;
-    requestAnimationFrame(animateParticles);
+      if (p.y < -5) {
+        p.y = height + 5;
+        p.x = Math.random() * width;
+      }
+
+      if (p.x < -5) p.x = width + 5;
+      if (p.x > width + 5) p.x = -5;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 204, 255, 0.72)";
+    ctx.fill();
+  }
+
+  animationFrame = requestAnimationFrame(drawParticles);
 }
 
 window.addEventListener("resize", resizeCanvas);
 
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    lastFrame = 0;
+  }
+});
+
 resizeCanvas();
-animateParticles();
+drawParticles();
 
-// Reveal feature cards on scroll
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-        }
+
+/* ---------------------------------
+   4. INTERACTIVE CURSOR GLOW
+--------------------------------- */
+const cursorGlow = document.getElementById("cursor-glow");
+
+if (window.matchMedia("(pointer: fine)").matches) {
+  window.addEventListener("pointermove", event => {
+    cursorGlow.style.left = event.clientX + "px";
+    cursorGlow.style.top = event.clientY + "px";
+  }, { passive: true });
+}
+
+
+/* ---------------------------------
+   5. 3D HERO TILT
+--------------------------------- */
+const hero = document.querySelector(".hero");
+const heroContent = document.getElementById("heroContent");
+
+if (window.matchMedia("(pointer: fine)").matches && !reducedMotion) {
+  hero.addEventListener("pointermove", event => {
+    const rect = hero.getBoundingClientRect();
+
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    const rotateY = (x - 0.5) * 7;
+    const rotateX = (0.5 - y) * 5;
+
+    heroContent.style.transform =
+      `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    heroContent.style.transition = "transform .5s ease";
+    heroContent.style.transform =
+      "perspective(1000px) rotateX(0) rotateY(0)";
+
+    setTimeout(() => {
+      heroContent.style.transition = "";
+    }, 500);
+  });
+}
+
+
+/* ---------------------------------
+   6. 3D TILT CARDS
+--------------------------------- */
+if (window.matchMedia("(pointer: fine)").matches && !reducedMotion) {
+  document.querySelectorAll(".tilt-card").forEach(card => {
+    card.addEventListener("pointermove", event => {
+      const rect = card.getBoundingClientRect();
+
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+
+      const rotateY = (x - 0.5) * 9;
+      const rotateX = (0.5 - y) * 9;
+
+      card.style.transform =
+        `translateY(-4px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      card.style.boxShadow =
+        `${(x - 0.5) * 15}px ${(y - 0.5) * 15}px 35px #008cff18`;
     });
-}, { threshold: 0.15 });
 
-document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "";
+      card.style.boxShadow = "";
+    });
+  });
+}
+
+
+/* ---------------------------------
+   7. SCROLL REVEAL
+--------------------------------- */
+const cards = document.querySelectorAll(".card");
+
+if ("IntersectionObserver" in window && !reducedMotion) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  cards.forEach((card, index) => {
+    card.style.transitionDelay = (index * 120) + "ms";
     observer.observe(card);
+  });
+} else {
+  cards.forEach(card => card.classList.add("show"));
+}
+
+
+/* ---------------------------------
+   8. SMOOTH NAVIGATION
+--------------------------------- */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", event => {
+    const target = document.querySelector(
+      link.getAttribute("href")
+    );
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+  });
 });
 </script>
 
