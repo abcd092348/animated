@@ -816,6 +816,240 @@ footer {
     transition-duration: .01ms !important;
   }
 }
+
+/* MH GROUP CINEMATIC FLASHLIGHT INTRO */
+#mh-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  overflow: hidden;
+  background: #020611;
+  color: #f4f9ff;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+#mh-intro .mh-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,.85) 1px, transparent 1.5px),
+    radial-gradient(rgba(0,217,255,.8) 1px, transparent 1.5px);
+  background-size: 73px 73px, 113px 113px;
+  background-position: 0 0, 30px 45px;
+  opacity: .25;
+}
+#mh-intro .mh-scene {
+  position: relative;
+  width: min(1000px, 100%);
+  height: min(560px, 85svh);
+  min-height: 390px;
+}
+#mh-intro .mh-boy {
+  position: absolute;
+  left: 7%;
+  bottom: 42px;
+  width: 180px;
+  height: 340px;
+  z-index: 4;
+}
+#mh-intro .mh-head {
+  position: absolute;
+  left: 61px;
+  top: 15px;
+  width: 48px;
+  height: 57px;
+  background: #080b13;
+  border-radius: 48% 48% 42% 42%;
+  box-shadow: inset -7px -2px #111827;
+}
+#mh-intro .mh-hair {
+  position: absolute;
+  left: 57px;
+  top: 8px;
+  width: 54px;
+  height: 28px;
+  background: #05070d;
+  border-radius: 70% 60% 15% 10%;
+}
+#mh-intro .mh-body {
+  position: absolute;
+  left: 39px;
+  top: 69px;
+  width: 91px;
+  height: 145px;
+  background: linear-gradient(90deg, #070a12, #151c2a, #060911);
+  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+}
+#mh-intro .mh-arm {
+  position: absolute;
+  left: 98px;
+  top: 78px;
+  width: 24px;
+  height: 118px;
+  background: #101725;
+  border-radius: 15px;
+  transform: rotate(-48deg);
+  transform-origin: top center;
+}
+#mh-intro .mh-leg {
+  position: absolute;
+  top: 195px;
+  width: 35px;
+  height: 125px;
+  background: linear-gradient(90deg, #05070d, #111827);
+  border-radius: 8px;
+}
+#mh-intro .mh-leg-left { left: 49px; transform: rotate(5deg); }
+#mh-intro .mh-leg-right { left: 91px; transform: rotate(-7deg); }
+#mh-intro .mh-flashlight {
+  position: absolute;
+  z-index: 6;
+  width: 43px;
+  height: 13px;
+  left: 111px;
+  top: 134px;
+  border-radius: 5px;
+  background: linear-gradient(#dce9f5, #3e4c60);
+  transform: rotate(-22deg);
+  box-shadow: 0 0 5px #a5e9ff;
+}
+#mh-intro .mh-flashlight::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 1px;
+  width: 9px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 rgba(120,225,255,0);
+  animation: mhTorchGlow .5s ease 1.35s forwards;
+}
+#mh-intro .mh-beam {
+  position: absolute;
+  z-index: 2;
+  left: 18%;
+  top: 31%;
+  width: 72%;
+  height: 58%;
+  background: linear-gradient(90deg, rgba(120,225,255,.42), rgba(65,178,255,.18) 48%, rgba(255,255,255,.07));
+  clip-path: polygon(0 40%, 100% 0, 100% 100%);
+  transform: scaleX(.02);
+  transform-origin: left center;
+  opacity: 0;
+  filter: blur(3px);
+  animation: mhBeamMove 2.8s ease 1.45s forwards;
+}
+#mh-intro .mh-logo {
+  position: absolute;
+  z-index: 5;
+  right: 3%;
+  top: 31%;
+  width: 58%;
+  text-align: center;
+  opacity: 0;
+  transform: scale(.78);
+  animation: mhLogoReveal 1.9s ease 3.65s forwards;
+}
+#mh-intro .mh-logo-mark {
+  width: 105px;
+  height: 105px;
+  margin: 0 auto 17px;
+  border: 2px solid #6bdcff;
+  border-radius: 25px;
+  display: grid;
+  place-items: center;
+  font-size: 38px;
+  font-weight: 950;
+  color: #fff;
+  background: rgba(8,26,48,.88);
+  box-shadow: 0 0 35px #19aaff, inset 0 0 25px #1167a8;
+  transform: rotate(-4deg);
+}
+#mh-intro .mh-logo h2 {
+  margin: 0;
+  font-size: clamp(27px, 5vw, 48px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 0 22px #29baff;
+}
+#mh-intro .mh-logo p {
+  margin-top: 12px;
+  color: #8bdfff;
+  font-size: clamp(10px, 1.8vw, 14px);
+  letter-spacing: 2.5px;
+  line-height: 1.8;
+}
+#mh-intro .mh-intro-label {
+  position: absolute;
+  z-index: 7;
+  bottom: 23px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #8bdfff;
+  font-size: 11px;
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: mhLabelReveal 7.5s linear .3s forwards;
+}
+#mh-intro .mh-skip {
+  position: absolute;
+  z-index: 10;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #60cfff;
+  color: white;
+  background: rgba(5,18,34,.85);
+  border-radius: 30px;
+  padding: 10px 17px;
+  cursor: pointer;
+}
+#mh-intro.mh-closing {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+@keyframes mhTorchGlow {
+  to { box-shadow: 0 0 20px 8px rgba(120,225,255,.95); }
+}
+@keyframes mhBeamMove {
+  0% { opacity: 0; transform: scaleX(.02); }
+  15% { opacity: 1; }
+  75% { opacity: .9; transform: scaleX(1); }
+  100% { opacity: .72; transform: scaleX(1); }
+}
+@keyframes mhLogoReveal {
+  0% { opacity: 0; transform: scale(.78); filter: brightness(.2); }
+  60% { opacity: 1; transform: scale(1.04); filter: brightness(1.8); }
+  100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+}
+@keyframes mhLabelReveal {
+  0%, 15% { opacity: 0; }
+  30%, 80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (max-width: 600px) {
+  #mh-intro .mh-scene { transform: scale(.78); width: 125%; }
+  #mh-intro .mh-boy { left: 0; }
+  #mh-intro .mh-logo { right: 0; width: 58%; }
+  #mh-intro .mh-logo-mark { width: 75px; height: 75px; font-size: 28px; }
+  #mh-intro .mh-logo h2 { letter-spacing: 1px; }
+  #mh-intro .mh-logo p { letter-spacing: 1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mh-intro .mh-beam, #mh-intro .mh-logo,
+  #mh-intro .mh-flashlight::after, #mh-intro .mh-intro-label {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+  }
+}
+
 </style>
 </head>
 
@@ -831,6 +1065,34 @@ footer {
     </div>
   </div>
 </div>
+
+
+<!-- CINEMATIC INTRO: BOY TURNS ON FLASHLIGHT AND REVEALS MH GROUP -->
+<div id="mh-intro" aria-label="MH Group cinematic introduction">
+  <div class="mh-stars"></div>
+  <button class="mh-skip" id="mhSkipIntro" type="button">Skip Intro ✕</button>
+  <div class="mh-scene">
+    <div class="mh-boy" aria-hidden="true">
+      <div class="mh-hair"></div>
+      <div class="mh-head"></div>
+      <div class="mh-body"></div>
+      <div class="mh-arm"></div>
+      <div class="mh-leg mh-leg-left"></div>
+      <div class="mh-leg mh-leg-right"></div>
+      <div class="mh-flashlight"></div>
+    </div>
+    <div class="mh-beam" aria-hidden="true"></div>
+    <div class="mh-logo">
+      <div class="mh-logo-mark">MH</div>
+      <h2>MH GROUP</h2>
+      <p>OF PROJECTS</p>
+      <p>ONE VISION. INFINITE POSSIBILITIES.</p>
+    </div>
+  </div>
+  <div class="mh-intro-label">A NEW VISION IS RISING</div>
+</div>
+<!-- END CINEMATIC INTRO -->
+
 
 <!-- BACKGROUND EFFECTS -->
 <div class="background"></div>
@@ -1261,6 +1523,28 @@ const contactLink = document.getElementById("contactLink");
 
 // Example:
 // contactLink.href = "https://your-website.com/contact";
+
+
+/* CINEMATIC INTRO CONTROL */
+(() => {
+  const intro = document.getElementById("mh-intro");
+  const skipButton = document.getElementById("mhSkipIntro");
+  if (!intro || !skipButton) return;
+
+  let closed = false;
+  function closeMhIntro() {
+    if (closed) return;
+    closed = true;
+    intro.classList.add("mh-closing");
+    window.setTimeout(() => {
+      intro.remove();
+    }, 800);
+  }
+
+  skipButton.addEventListener("click", closeMhIntro);
+  window.setTimeout(closeMhIntro, 9000);
+})();
+
 </script>
 
   <script>
